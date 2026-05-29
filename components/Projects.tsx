@@ -13,7 +13,7 @@ const projects = [
     tags: ["featured", "hackathon", "onchain", "cli"],
     stack: ["Go", "Sui", "CLI", "Onchain Storage"],
     github: "https://github.com/smrnjeet222/oxbin",
-    demo: "https://ethglobal.com/showcase?events=newdelhi&page=13",
+    demo: "https://ethglobal.com/showcase/oxbin-wpmec",
     featured: true,
     highlights: [
       "Built for ETHGlobal New Delhi 2025",
