@@ -8,9 +8,9 @@ import TerminalWindow from "./TerminalWindow";
 const fullCommand = "jeet@portfolio:~$ whoami";
 
 const PROMPT_SEGMENTS = [
-  { text: "jeet",      color: "var(--accent-cyan)" },
+  { text: "jeet",      color: "var(--accent-green)" },
   { text: "@",         color: "var(--text-secondary)" },
-  { text: "portfolio", color: "var(--accent-green)" },
+  { text: "portfolio", color: "var(--accent-cyan)" },
   { text: ":~$",       color: "var(--text-secondary)" },
   { text: " whoami",   color: "var(--text-primary)" },
 ];
