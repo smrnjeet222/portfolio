@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const dynamic = "force-static";
-export const alt = "Simranjeet Singh — Resume";
+export const alt = "Simranjeet Singh - Resume";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -33,7 +33,7 @@ export default async function ResumeOpenGraphImage() {
           <span style={{ color: "#ff5555" }}>●</span>
           <span style={{ color: "#f1fa8c" }}>●</span>
           <span style={{ color: "#50fa7b" }}>●</span>
-          <span style={{ marginLeft: "16px" }}>resume.pdf — jeet22.xyz</span>
+          <span style={{ marginLeft: "16px" }}>resume.pdf - jeet22.xyz</span>
         </div>
 
         <div

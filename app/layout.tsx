@@ -7,15 +7,15 @@ import KonamiEasterEgg from "@/components/KonamiEasterEgg";
 
 const SITE_URL = "https://jeet22.xyz";
 const SITE_NAME = "Simranjeet Singh";
-const TITLE = "Simranjeet Singh — Senior Software Engineer (AI · Fullstack · Web3)";
+const TITLE = "Simranjeet Singh - Senior Fullstack Engineer (AI · Web3)";
 const DESCRIPTION =
-  "Senior Software Engineer with 5+ years shipping production systems end-to-end. Built LLM/RAG pipelines and AI agent tooling (MCP), scaled fullstack products to thousands of users, and led teams through $30M+ token launches. Owns problems from product UI to backend services to onchain protocols.";
+  "From product UI to backend services to onchain protocols. 5+ years shipping at scale. Building AI agents, RAG pipelines, Web3 stacks";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: TITLE,
-    template: "%s — Simranjeet Singh",
+    template: "%s - Simranjeet Singh",
   },
   description: DESCRIPTION,
   applicationName: SITE_NAME,
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Simranjeet Singh — Senior Software Engineer (AI · Fullstack · Web3)",
+        alt: "Simranjeet Singh - Senior Software Engineer (AI · Fullstack · Web3)",
         type: "image/png",
       },
     ],

@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const dynamic = "force-static";
-export const alt = "Simranjeet Singh — Senior Software Engineer (AI · Fullstack · Web3)";
+export const alt = "Simranjeet Singh - Senior Software Engineer (AI · Fullstack · Web3)";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -44,7 +44,7 @@ export default async function OpenGraphImage() {
           <span style={{ color: "#f1fa8c" }}>●</span>
           <span style={{ color: "#ff5555" }}>●</span>
           <span style={{ marginLeft: "16px", color: "#888" }}>
-            jeet22.xyz — ~/portfolio
+            jeet22.xyz - ~/portfolio
           </span>
         </div>
 
