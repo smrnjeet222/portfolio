@@ -7,9 +7,9 @@ import KonamiEasterEgg from "@/components/KonamiEasterEgg";
 
 const SITE_URL = "https://jeet22.xyz";
 const SITE_NAME = "Simranjeet Singh";
-const TITLE = "Simranjeet Singh — Senior Software Engineer (Web3 / Fullstack)";
+const TITLE = "Simranjeet Singh — Senior Software Engineer (AI · Fullstack · Web3)";
 const DESCRIPTION =
-  "Portfolio of Simranjeet Singh — Senior Software Engineer specializing in Web3 and fullstack development. Building DeFi protocols, token systems, NFT platforms, and distributed product systems at scale.";
+  "Senior Software Engineer with 5+ years shipping production systems end-to-end. Built LLM/RAG pipelines and AI agent tooling (MCP), scaled fullstack products to thousands of users, and led teams through $30M+ token launches. Owns problems from product UI to backend services to onchain protocols.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -26,21 +26,24 @@ export const metadata: Metadata = {
     "smrnjeet222",
     "smrnjeet_22",
     "jeet22",
-    "Web3 Developer",
-    "Web3 Engineer",
-    "Fullstack Engineer",
     "Senior Software Engineer",
-    "Solidity",
-    "Smart Contracts",
-    "DeFi",
-    "NFT",
-    "Ethereum",
-    "EVM",
+    "Fullstack Engineer",
+    "AI Engineer",
+    "LLM",
+    "RAG",
+    "MCP",
+    "AI Agents",
     "Next.js",
     "React",
     "TypeScript",
-    "NestJS",
     "Node.js",
+    "NestJS",
+    "Go",
+    "Python",
+    "Web3 Engineer",
+    "Smart Contracts",
+    "Solidity",
+    "Founding Engineer",
     "Portfolio",
   ],
   authors: [{ name: "Simranjeet Singh", url: SITE_URL }],
@@ -67,7 +70,7 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Simranjeet Singh — Senior Software Engineer (Web3 / Fullstack)",
+        alt: "Simranjeet Singh — Senior Software Engineer (AI · Fullstack · Web3)",
         type: "image/png",
       },
     ],
@@ -130,17 +133,22 @@ const jsonLdPerson = {
     "https://x.com/smrnjeet_22",
   ],
   knowsAbout: [
-    "Web3",
-    "Solidity",
-    "DeFi",
-    "Ethereum",
-    "Smart Contracts",
+    "Fullstack Development",
+    "AI Engineering",
+    "Large Language Models",
+    "Retrieval-Augmented Generation",
+    "Model Context Protocol",
     "TypeScript",
     "React",
     "Next.js",
-    "NestJS",
     "Node.js",
-    "Fullstack Development",
+    "NestJS",
+    "Go",
+    "Python",
+    "Distributed Systems",
+    "Web3",
+    "Solidity",
+    "Smart Contracts",
   ],
 };
 

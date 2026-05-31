@@ -66,7 +66,7 @@ export default async function ResumeOpenGraphImage() {
           </div>
 
           <div style={{ fontSize: "30px", color: "#bd93f9" }}>
-            Senior Software Engineer · Web3 / Fullstack
+            Senior Software Engineer · AI · Fullstack · Web3
           </div>
         </div>
 

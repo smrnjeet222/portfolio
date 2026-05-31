@@ -9,7 +9,7 @@ const impactStats = [
   { label: "AVAX Grant (Pixelmon)",        value: "$1M",   color: "var(--accent-green)" },
   { label: "Years Production Experience", value: "5+",    color: "var(--accent-yellow)" },
   { label: "Products / Systems Shipped",  value: "10+",   color: "var(--accent-orange)" },
-  { label: "Blockchain build upon",        value: "8+",    color: "var(--accent-purple)" },
+  { label: "Blockchains Shipped On",       value: "8+",    color: "var(--accent-purple)" },
   { label: "Engineers Led",               value: "4",     color: "var(--accent-cyan)" },
 ];
 

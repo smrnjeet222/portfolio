@@ -131,7 +131,7 @@ export default function OpenSource() {
                     </span>
                     <ExternalLink
                       size={13}
-                      style={{ color: "var(--text-secondary)", flexShrink: 0, marginTop: "2px" }}
+                      style={{ color: "var(--accent-green)", flexShrink: 0, marginTop: "2px" }}
                     />
                   </div>
 

@@ -6,53 +6,55 @@ import { useFadeUp } from "./useFadeUp";
 
 const skillCategories = [
   {
+    title: "AI Engineering",
+    color: "var(--accent-purple)",
+    skills: [
+      "OpenAI", "Anthropic", "MCP", "RAG", "pgvector", "LangChain",
+      "Agents", "Embeddings", "Evals", "Streaming", "Function Calling",
+    ],
+  },
+  {
     title: "Product Frontend",
     color: "var(--accent-cyan)",
     skills: [
-      "TypeScript", "React", "Next.js", "React Native", "Expo", "GraphQL", "Vite", "TanStack",
-      "Tailwind CSS", "shadcn/ui", "Mantine", "Zustand", "Playwright",
+      "TypeScript", "React", "Next.js", "React Native", "Expo", "GraphQL",
+      "TanStack", "Tailwind CSS", "shadcn/ui", "Zustand", "Playwright",
     ],
   },
   {
-    title: "Backend & CLI",
+    title: "Backend & APIs",
     color: "var(--accent-green)",
     skills: [
-      "Go", "Fiber", "Gin", "Gorm", "SQLC", "gRPC", "Python", "FastAPI",
-      "Node.js", "NestJS", "Fastify", "REST", "Drizzle", "WebSockets", "OpenTelemetry",
+      "Go", "Fiber", "gRPC", "Python", "FastAPI", "Node.js", "NestJS",
+      "Fastify", "REST", "Drizzle", "WebSockets", "OpenTelemetry",
     ],
   },
   {
-    title: "Onchain Protocols",
+    title: "Data, Infra & Onchain",
     color: "var(--accent-yellow)",
     skills: [
-      "Solidity", "Sui", "Move", "Solana/Rust", "Anchor", "Huff",
-      "Foundry", "Hardhat", "ethers.js/viem", "Subgraphs", "IPFS", "LayerZero", "Uniswap", "Aave"
-    ],
-  },
-  {
-    title: "Data & Infra",
-    color: "var(--accent-purple)",
-    skills: [
-      "PostgreSQL", "MongoDB", "Redis", "Kafka", "AWS", "CDK", "Docker",
-      "Cloudflare", "Grafana", "Prometheus", "Sentry", "ClickHouse", "MCP/RAG",
+      "PostgreSQL", "Redis", "Kafka", "ClickHouse", "AWS", "Docker",
+      "Cloudflare", "Grafana", "Sentry", "Solidity", "EVM", "Subgraphs", "LayerZero",
     ],
   },
 ];
 
 const bioParagraphs = [
-  `Senior Software Engineer with 5+ years of end-to-end ownership across product UI,
-backend services, event-driven data pipelines, and smart contracts. Based in Delhi, India.`,
-  `Currently at MON Co. / Pixelmon Labs, building the MON token ecosystem —
-presale contracts, staking/vesting, launchpool campaigns, cross-chain expansion via LayerZero,
-and a Morpho-integrated DeFi lending/borrowing platform. Designed LexiumVault, an async RWA
-vault protocol based on ERC4626/ERC7540/ERC7575 for litigation-case tokenization.`,
-  `Previously led Web3 + frontend at PopSocial (SocialFi mobile app, Dubai) — promoted to
-Tech Lead within 5 months, managing 4 engineers. Shipped onboarding, NFT marketplace,
-and migrated to in-house smart wallet auth layer (Phinx). Before that: full-stack dev at
-Cykura (concentrated liquidity AMM on Solana) and Colexion (NFT fantasy sports).`,
-  `ETHIndia prize winner (The Graph ecosystem track, 2022). Active OSS contributor to
-QuickSwap, project-serum/swap-ui, and Polygon docs. Strong open-source GitHub history
-across DeFi, tooling, and frontend projects.`,
+  `Senior Software Engineer with 5+ years shipping production systems end-to-end —
+product UI, backend services, data pipelines, AI tooling, and onchain protocols.
+10+ products taken from 0→1, from solo founder builds to multi-engineer launches at scale.
+Based in Delhi, India.`,
+  `Currently building AI-powered marketplace tooling at Collect Shiny —
+an MCP server + RAG search layer over a card inventory, with agent flows for buying and listing.
+In parallel, own infra for the MON token ecosystem at Pixelmon Labs:
+$30M+ presale, staking/vesting contracts, LayerZero cross-chain, and a Morpho-integrated lending product.`,
+  `Previously Tech Lead at PopSocial (Dubai) — promoted within 5 months, led 4 engineers
+through the launch of a SocialFi mobile app, NFT marketplace, and an in-house smart-wallet
+auth layer (Phinx). Before that: shipped the first concentrated-liquidity AMM on Solana
+(Cykura) and an NFT fantasy-sports product (Colexion).`,
+  `ETHIndia 2022 prize winner (The Graph track). Open-source contributor to QuickSwap,
+project-serum/swap-ui, and Polygon docs. Strong GitHub footprint across AI tooling,
+developer infra, and product engineering.`,
 ];
 
 export default function About() {
@@ -167,7 +169,7 @@ export default function About() {
                 # About Me
               </div>
               <div style={{ fontSize: "0.85rem", color: "var(--text-secondary)", marginBottom: "16px" }}>
-                # Senior Software Engineer · Web3 / Fullstack
+                # Senior Software Engineer · AI · Fullstack · Web3
               </div>
               <div style={{ fontSize: "0.8rem", color: "var(--accent-green)", marginBottom: "12px" }}>
                 #!/bin/bash

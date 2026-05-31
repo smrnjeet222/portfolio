@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const dynamic = "force-static";
-export const alt = "Simranjeet Singh — Senior Software Engineer (Web3 / Fullstack)";
+export const alt = "Simranjeet Singh — Senior Software Engineer (AI · Fullstack · Web3)";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -94,7 +94,7 @@ export default async function OpenGraphImage() {
               marginTop: "4px",
             }}
           >
-            Web3 · Fullstack · DeFi · Smart Contracts
+            AI · Fullstack · Web3 · 5+ yrs · 0→1 builder
           </div>
         </div>
 
@@ -109,11 +109,12 @@ export default async function OpenGraphImage() {
           }}
         >
           <div style={{ display: "flex", gap: "28px" }}>
-            <span style={{ color: "#50fa7b" }}>solidity</span>
+            <span style={{ color: "#ff79c6" }}>agentic ai</span>
+            <span style={{ color: "#bd93f9" }}>llm/rag</span>
             <span style={{ color: "#8be9fd" }}>typescript</span>
-            <span style={{ color: "#f1fa8c" }}>react</span>
-            <span style={{ color: "#ff79c6" }}>next.js</span>
-            <span style={{ color: "#bd93f9" }}>nestjs</span>
+            <span style={{ color: "#f1fa8c" }}>react/next</span>
+            <span style={{ color: "#50fa7b" }}>go/node/python</span>
+            <span style={{ color: "#ffb86c" }}>solidity</span>
           </div>
           <div style={{ color: "#888" }}>jeet22.xyz</div>
         </div>

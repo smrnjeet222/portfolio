@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Download, ChevronRight } from "lucide-react";
+import Link from "next/link";
+import { FileText, ChevronRight } from "lucide-react";
 import TerminalWindow from "./TerminalWindow";
 
 const fullCommand = "jeet@portfolio:~$ whoami";
@@ -33,35 +34,35 @@ function ColoredPrompt({ typed, showCursor }: { typed: string; showCursor: boole
 }
 
 const specializations = [
-  "Full-Stack Development (React, Next.js, React Native)",
-  "Backend APIs (Go, Node.js, NestJS)",
-  "Smart Contracts (Solidity, EVM, Solana/Anchor)",
-  "DeFi Protocols (AMM, Uniswap, NFTs, Morpho, RWA)",
-  "Event-Driven Systems (Subgraphs, Ponder, Kafka)",
-  "Cloud & DevOps (AWS, Docker, CI/CD)",
-  "AI-Assisted Automation (MCP, RAG, LLM pipelines)",
-  "Web3 Auth & Wallets (thirdweb, Account Abstraction, Pimlico)",
+  "Fullstack Ownership: UI → API → DB → infra, end-to-end",
+  "AI Systems: RAG pipelines, eval loops, agent orchestration",
+  "API Design: schemas, gRPC/REST, versioning, microservices",
+  "Production Scale: observability, on-call, perf + cost tuning",
+  "Smart Contracts: gas optimization, audits, upgrade patterns",
+  "Distributed Systems: event-driven, idempotency, backpressure",
+  "Tech Leadership: code review, architecture, mentoring, hiring",
+  "0→1 Product: scoping, MVP cuts, founder-mode iteration",
 ];
 
 const techStack = [
-  "TypeScript", "React", "Next.js", "React Native", "Node.js", "Go",
-  "Solidity", "PostgreSQL", "Redis", "AWS", "Docker",
+  "TypeScript", "Python", "Go", "React", "Next.js", "Node.js",
+  "FastAPI", "LangChain", "RAG", "MCP", "SQL", "AWS", "Solidity",
 ];
 
 const stats = [
-  "5+ yrs · 10+ products. shipped across Web2 & Web3",
-  "Tech Lead @ PopSocial — 4 engineers · SocialFi w/ ENS & NFTs",
-  "Proof-of-Activity Protocol → $1M AVAX grant for Pixelmon",
-  "MON ecosystem: $30M presale · staking · vesting · + OFT",
-  "ETHIndia 2022 Winner — The Graph ecosystem prize",
-  "Morpho vaults lending/borrowing dApp for MON ecosystem",
-  "LexiumVault: ERC7540 async litigation RWA vault",
+  "5+ yrs · 10+ products shipped 0→1 (web, mobile, APIs, onchain)",
+  "Built AI inventory on Collect Shiny - MCP + RAG in prod",
+  "Owned $30M+ MON token launch: presale, staking, vesting",
+  "Tech Lead @ PopSocial - led 4 eng, promoted in 5 months",
+  "Proof-of-Activity protocol → $1M AVAX grant (Pixelmon)",
+  "Shipped 1st concentrated-liquidity AMM on Solana (Cykura)",
+  "ETHIndia 2022 Winner - The Graph ecosystem track",
 ];
 
 const featuredProjects = [
-  "Collect Shiny — card marketplace + AI inventory (MCP + RAG)",
-  "CycloSwap — 1st concentrated liquidity AMM on Solana",
-  "MonID — unified auth & smart wallet identity layer",
+  "Collect Shiny: AI-powered card marketplace (MCP + RAG search)",
+  "MON Ecosystem: $30M presale, staking, vesting, LayerZero OFT",
+  "MonID: unified auth + smart-wallet identity layer",
 ];
 
 export default function Hero() {
@@ -121,20 +122,31 @@ export default function Hero() {
           gridTemplateColumns: "1fr 1fr",
           gap: "32px",
           width: "100%",
-          alignItems: "start",
+          alignItems: "stretch",
         }}
         className="hero-grid"
       >
         {/* Left: Main terminal */}
-        <div>
-          <TerminalWindow filename="portfolio.sh">
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <TerminalWindow
+            filename="portfolio.sh"
+            style={{ flex: 1, display: "flex", flexDirection: "column" }}
+            contentStyle={{ flex: 1, display: "flex", flexDirection: "column" }}
+          >
             {/* Typing prompt */}
             <div style={{ marginBottom: "16px" }}>
               <ColoredPrompt typed={typed} showCursor={!showOutput} />
             </div>
 
             {showOutput && (
-              <div style={{ animation: "fadeUp 0.4s ease forwards" }}>
+              <div
+                style={{
+                  animation: "fadeUp 0.4s ease forwards",
+                  flex: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
                 {/* Name + title */}
                 <div style={{ marginBottom: "20px" }}>
                   <div
@@ -155,7 +167,7 @@ export default function Hero() {
                       marginTop: "4px",
                     }}
                   >
-                    Senior Software Engineer · Web3 / Fullstack
+                    Senior Software Engineer · AI · Fullstack · Web3
                   </div>
                 </div>
 
@@ -166,25 +178,45 @@ export default function Hero() {
                       # Specializing in:
                     </div>
                     <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-                      {specializations.slice(0, visibleSpecs).map((s, i) => (
-                        <div
-                          key={i}
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "8px",
-                            animation: "fadeUp 0.3s ease forwards",
-                          }}
-                        >
-                          <ChevronRight
-                            size={12}
-                            style={{ color: "var(--accent-green)", flexShrink: 0 }}
-                          />
-                          <span style={{ color: "var(--text-primary)", fontSize: "0.85rem" }}>
-                            {s}
-                          </span>
-                        </div>
-                      ))}
+                      {specializations.slice(0, visibleSpecs).map((s, i) => {
+                        const m = s.match(/^([^:—]+)([:—].*)$/);
+                        const head = m ? m[1].trim() : s;
+                        const tail = m ? m[2] : "";
+                        return (
+                          <div
+                            key={i}
+                            style={{
+                              display: "flex",
+                              alignItems: "flex-start",
+                              gap: "8px",
+                              animation: "fadeUp 0.3s ease forwards",
+                            }}
+                          >
+                            <ChevronRight
+                              size={12}
+                              style={{
+                                color: "var(--accent-green)",
+                                flexShrink: 0,
+                                marginTop: "4px",
+                              }}
+                            />
+                            <span
+                              style={{
+                                color: "var(--text-primary)",
+                                fontSize: "0.85rem",
+                                minWidth: 0,
+                                flex: 1,
+                                lineHeight: 1.4,
+                              }}
+                            >
+                              <strong style={{ color: "var(--text-primary)", fontWeight: 600 }}>
+                                {head}
+                              </strong>
+                              {tail}
+                            </span>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 )}
@@ -209,7 +241,8 @@ export default function Hero() {
                 {visibleSpecs === specializations.length && (
                   <div
                     style={{
-                      marginTop: "28px",
+                      marginTop: "auto",
+                      paddingTop: "28px",
                       display: "flex",
                       gap: "12px",
                       flexWrap: "wrap",
@@ -227,15 +260,10 @@ export default function Hero() {
                       <ChevronRight size={14} style={{ marginLeft: "-8px" }}/>
                       ./contact_me
                     </a>
-                    <a
-                      href="/simranjeet_resume.pdf"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-secondary"
-                    >
-                      <Download size={14} />
-                      wget resume.pdf
-                    </a>
+                    <Link href="/resume" className="btn-secondary">
+                      <FileText size={14} />
+                      cat resume.md
+                    </Link>
                   </div>
                 )}
               </div>
@@ -314,10 +342,10 @@ export default function Hero() {
           {/* Quick stat badges */}
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
             {[
-              { label: "Years Experience", value: "5+" },
-              { label: "Products Shipped", value: "10+" },
-              { label: "ETHIndia", value: "Winner" },
-              { label: "Blockchains", value: "8+" },
+              { label: "Years Shipping", value: "5+" },
+              { label: "Products 0→1", value: "10+" },
+              { label: "Engineers Led", value: "4" },
+              { label: "Token Launch", value: "$30M+" },
             ].map(({ label, value }) => (
               <div
                 key={label}
@@ -342,7 +370,8 @@ export default function Hero() {
       </div>
 
       <style>{`
-        @media (max-width: 768px) {
+        .hero-grid > div { min-width: 0; }
+        @media (max-width: 1024px) {
           .hero-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>

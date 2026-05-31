@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 const SITE_URL = "https://jeet22.xyz";
 const TITLE = "Resume";
 const DESCRIPTION =
-  "Resume of Simranjeet Singh — Senior Software Engineer (Web3 / Fullstack). View or download as PDF.";
+  "Resume of Simranjeet Singh — Senior Software Engineer (AI · Fullstack · Web3). 5+ years shipping production systems end-to-end. View or download PDF.";
 
 export const metadata: Metadata = {
   title: TITLE,

@@ -1,5 +1,6 @@
 "use client";
 
+import { ExternalLink } from "lucide-react";
 import TerminalWindow from "./TerminalWindow";
 import { useFadeUp } from "./useFadeUp";
 
@@ -11,6 +12,7 @@ const experiences = [
     description:
       "Built MON token lifecycle end-to-end: presale contracts, backend orchestration, vesting/staking, launchpool campaigns, and cross-chain expansion via LayerZero/OFT. Architected Collect Shiny card marketplace with Seaport/OpenSea integration, AI-assisted inventory automation (MCP + RAG), and Morpho vault lending/borrowing dApps. Designed LexiumVault for RWA tokenization using ERC4626/ERC7540/ERC7575 async vault architecture.",
     tags: ["Next.js", "NestJS", "Solidity", "Ponder", "Morpho", "ethers.js", "PostgreSQL", "Redis", "AWS", "thirdweb"],
+    links: [{ label: "pixelmon.ai", href: "https://pixelmon.ai" }],
   },
   {
     date: "Jan 2023 – Dec 2023",
@@ -19,6 +21,12 @@ const experiences = [
     description:
       "Built React Native SocialFi mobile product — profile, onboarding, and content feeds for Web2 users entering Web3. Promoted to lead Web3 + frontend efforts within 5 months, managing 4 engineers. Drove migration from third-party auth to in-house smart wallet/auth layer (Phinx). Integrated ENS-style identity, NFT contracts, marketplace, and walletconnect across EVM-compatible chains.",
     tags: ["React Native", "React", "TypeScript", "Solidity", "ethers.js", "Zustand", "React Query", "Subgraphs"],
+    links: [
+      {
+        label: "launch post",
+        href: "https://www.linkedin.com/posts/pop-labs-official_popsocial-socialfi-web3-activity-7172592037353975809-Znlr",
+      },
+    ],
   },
   {
     date: "Jul 2022 – Dec 2022",
@@ -27,6 +35,7 @@ const experiences = [
     description:
       "Built Web2-to-Web3 bridge layers for NFT-enabled fantasy sports gameplay, implemented marketplace features (orders, bids, auctions) with Solidity + subgraph indexing, and moved backend persistence toward PostgreSQL + Sequelize.",
     tags: ["React", "TypeScript", "Node.js", "Solidity", "ethers.js", "The Graph", "PostgreSQL", "Tailwind"],
+    links: [{ label: "medium", href: "https://medium.com/@colexion_nft" }],
   },
   {
     date: "Jul 2021 – Jun 2022",
@@ -35,6 +44,12 @@ const experiences = [
     description:
       "Built V1 frontend from scratch for CycloSwap — concentrated liquidity AMM on Solana. Implemented wallet connection, swap/LP/position flows, and indexer-backed TVL/volume analytics APIs. Operated in high-ambiguity environment with immature early Solana tooling.",
     tags: ["React", "TypeScript", "Solana", "Rust", "Hasura", "Firebase", "Serum"],
+    links: [
+      {
+        label: "launch post",
+        href: "https://cykura.medium.com/welcome-to-cyclos-devnet-47b63d79cb69",
+      },
+    ],
   },
   {
     date: "2018 – 2022",
@@ -140,10 +155,60 @@ export default function Experiences() {
                         {exp.description}
                       </p>
 
-                      <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
-                        {exp.tags.map((tag) => (
-                          <span key={tag} className="tag">{tag}</span>
-                        ))}
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "flex-end",
+                          justifyContent: "space-between",
+                          gap: "12px",
+                          flexWrap: "wrap",
+                        }}
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                            flexWrap: "wrap",
+                            gap: "6px",
+                            flex: 1,
+                            minWidth: 0,
+                          }}
+                        >
+                          {exp.tags.map((tag) => (
+                            <span key={tag} className="tag">{tag}</span>
+                          ))}
+                        </div>
+                        {exp.links && exp.links.length > 0 && (
+                          <div
+                            style={{
+                              display: "flex",
+                              flexWrap: "wrap",
+                              gap: "10px",
+                              alignItems: "center",
+                              flexShrink: 0,
+                            }}
+                          >
+                            {exp.links.map((lnk) => (
+                              <a
+                                key={lnk.href}
+                                href={lnk.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{
+                                  display: "inline-flex",
+                                  alignItems: "center",
+                                  gap: "4px",
+                                  fontSize: "0.72rem",
+                                  color,
+                                  textDecoration: "none",
+                                  borderBottom: `1px dashed ${color}66`,
+                                }}
+                              >
+                                <ExternalLink size={11} />
+                                {lnk.label}
+                              </a>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
