@@ -45,16 +45,18 @@ product UI, backend services, data pipelines, AI tooling, and onchain protocols.
 10+ products taken from 0→1, from solo founder builds to multi-engineer launches at scale.
 Based in Delhi, India.`,
   `Currently building AI-powered marketplace tooling at Collect Shiny —
-an MCP server + RAG search layer over a card inventory, with agent flows for buying and listing.
-In parallel, own infra for the MON token ecosystem at Pixelmon Labs:
-$30M+ presale, staking/vesting contracts, LayerZero cross-chain, and a Morpho-integrated lending product.`,
+an MCP server + RAG search layer over a card inventory, with agent flows for buying and listing
+(~80% less manual catalog time for ops). In parallel, own infra for the MON token ecosystem at
+Pixelmon Labs: presale/staking/vesting contracts, LayerZero cross-chain, and a Morpho-integrated
+lending product, with ~60% lower API latency on high-read endpoints.`,
   `Previously Tech Lead at PopSocial (Dubai) — promoted within 5 months, led 4 engineers
 through the launch of a SocialFi mobile app, NFT marketplace, and an in-house smart-wallet
-auth layer (Phinx). Before that: shipped the first concentrated-liquidity AMM on Solana
-(Cykura) and an NFT fantasy-sports product (Colexion).`,
-  `ETHIndia 2022 prize winner (The Graph track). Open-source contributor to QuickSwap,
-project-serum/swap-ui, and Polygon docs. Strong GitHub footprint across AI tooling,
-developer infra, and product engineering.`,
+auth layer (Phinx). Before that: early-team engineer at Cykura shipping a concentrated-liquidity
+AMM on Solana plus marketplace APIs serving 10K+ users, and React dashboards at Surepass.`,
+  `ETHIndia 2022 prize winner (The Graph track). Open-source contributor in Rust —
+merged Ctrl+P/Ctrl+N navigation into herdr-recent-navigator, syntax highlighting PR open on
+mdserve — plus product discussions on Herdr, and earlier work on QuickSwap,
+project-serum/swap-ui, and Polygon docs.`,
 ];
 
 export default function About() {

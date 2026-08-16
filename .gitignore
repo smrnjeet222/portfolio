@@ -41,5 +41,8 @@ yarn-error.log*
 next-env.d.ts
 
 
-AGENTS.md 
+AGENTS.md
 cv.md
+
+# local symlink to ../../career-ops/kb
+/kb

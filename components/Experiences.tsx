@@ -29,27 +29,27 @@ const experiences = [
     ],
   },
   {
-    date: "Jul 2022 – Dec 2022",
+    date: "Jul 2021 – Dec 2022",
     category: "Work",
-    title: "Full Stack Developer @ Colexion (Delhi, India)",
+    title: "Full Stack Developer @ Cykura / Cyclos (Delhi, India)",
     description:
-      "Built Web2-to-Web3 bridge layers for NFT-enabled fantasy sports gameplay, implemented marketplace features (orders, bids, auctions) with Solidity + subgraph indexing, and moved backend persistence toward PostgreSQL + Sequelize.",
-    tags: ["React", "TypeScript", "Node.js", "Solidity", "ethers.js", "The Graph", "PostgreSQL", "Tailwind"],
-    links: [{ label: "medium", href: "https://medium.com/@colexion_nft" }],
-  },
-  {
-    date: "Jul 2021 – Jun 2022",
-    category: "Work",
-    title: "Full Stack Developer @ Cykura / Cyclos (Remote, India)",
-    description:
-      "Built V1 frontend from scratch for CycloSwap — concentrated liquidity AMM on Solana. Implemented wallet connection, swap/LP/position flows, and indexer-backed TVL/volume analytics APIs. Operated in high-ambiguity environment with immature early Solana tooling.",
-    tags: ["React", "TypeScript", "Solana", "Rust", "Hasura", "Firebase", "Serum"],
+      "Early-hire engineer on CycloSwap — concentrated liquidity AMM on Solana. Built V1 frontend from scratch: wallet connection, swap/LP/position flows, and indexer-backed TVL/volume analytics APIs. Built marketplace features (orders, bids, auctions) with subgraph indexing, and moved backend persistence from MongoDB to PostgreSQL + Sequelize. Marketplace REST/GraphQL APIs and admin dashboards served 10K+ active users; ~50% MTTR reduction via observability logging and GitHub Actions CI/CD.",
+    tags: ["React", "TypeScript", "Solana", "Rust", "Node.js", "Solidity", "The Graph", "PostgreSQL", "Hasura", "Serum"],
     links: [
       {
         label: "launch post",
         href: "https://cykura.medium.com/welcome-to-cyclos-devnet-47b63d79cb69",
       },
     ],
+  },
+  {
+    date: "Nov 2020 – Apr 2021",
+    category: "Work",
+    title: "React Developer (Intern) @ Surepass Technologies",
+    description:
+      "First product role — built reusable React components and page-level modules for verification/workflow-heavy B2B SaaS surfaces. Implemented state-driven flows (form states, success/error handling, conditional views) with typed React + Redux, and operator-facing dashboard experiences.",
+    tags: ["React", "TypeScript", "Redux", "SPA", "Dashboard UX"],
+    links: [{ label: "surepass.io", href: "https://surepass.io/" }],
   },
   {
     date: "2018 – 2022",

@@ -16,6 +16,48 @@ type Contribution = {
 
 const contributions: Contribution[] = [
   {
+    title: "beyondlex / herdr-recent-navigator — merged Rust PR",
+    url: "https://github.com/beyondlex/herdr-recent-navigator/pull/1",
+    date: "2026",
+    source: "GitHub PR · merged",
+    description:
+      "Rust TUI contribution adding Ctrl+P / Ctrl+N list navigation to the Herdr recent-workspace navigator. Merged into main on 2026-07-25.",
+    points: [
+      "Added Ctrl+P/Ctrl+N aliases and extracted shared selection logic out of the key handlers.",
+      "Updated UI status hints and documented the shortcuts.",
+      "74 tests passing, clean release build, no new Clippy warnings.",
+    ],
+    tags: ["open-source", "rust", "tui", "merged"],
+  },
+  {
+    title: "jfernandez / mdserve — syntax highlighting",
+    url: "https://github.com/jfernandez/mdserve/pull/84",
+    date: "2026",
+    source: "GitHub PR · open",
+    description:
+      "Server-side syntax highlighting for fenced code blocks in mdserve, a Rust Markdown preview server. PR open upstream.",
+    points: [
+      "Highlighting via Syntect + Two-Face with CSS-scoped light/dark theme switching.",
+      "Language alias resolution plus safe fallbacks for unknown or unlabeled blocks.",
+      "44 tests passing, Clippy with warnings denied, formatting checks clean.",
+    ],
+    tags: ["open-source", "rust", "syntect", "devtools"],
+  },
+  {
+    title: "herdrdev / herdr — product discussions",
+    url: "https://github.com/herdrdev/herdr/discussions/834",
+    date: "2026",
+    source: "GitHub Discussions",
+    description:
+      "Active community contributor to Herdr, a terminal multiplexer for coding agents — filing product ideas around workspace and tab-bar UX.",
+    points: [
+      "\"Option to move tab bar to the bottom\" — 29 upvotes, 7 comments (#834).",
+      "\"Show the active workspace name in the tab bar when the sidebar is collapsed\" (#1595).",
+      "Ideas backed by a merged Rust PR in the adjacent herdr-recent-navigator tool.",
+    ],
+    tags: ["open-source", "developer-tools", "ux", "discussions"],
+  },
+  {
     title: "QuickSwap / interface-v2",
     url: "https://github.com/QuickSwap/interface-v2/pulls?q=is%3Apr+author%3Asmrnjeet222",
     date: "2022-2023",
