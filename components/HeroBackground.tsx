@@ -34,35 +34,35 @@ export default function HeroBackground() {
         transition: "opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1)",
       }}
     >
-      {/* 1. Dynamic WebGL2 Liquid Canvas Layer with expanded, ultra-gradual fade */}
-      <div
-        className="absolute inset-0 z-0 overflow-hidden"
-        style={{
-          opacity: 0.70,
-          mask: "linear-gradient(to bottom, #000 0%, #000 40%, rgba(0,0,0,0.85) 55%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,0.3) 85%, rgba(0,0,0,0.08) 95%, transparent 100%)",
-          WebkitMask: "linear-gradient(to bottom, #000 0%, #000 40%, rgba(0,0,0,0.85) 55%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,0.3) 85%, rgba(0,0,0,0.08) 95%, transparent 100%)",
+     {/* 1. Dynamic WebGL2 Liquid Canvas Layer with expanded, ultra-gradual fade */}
+     <div
+       className="absolute inset-0 z-0 overflow-hidden"
+       style={{
+          opacity: 0.84,
+          mask: "linear-gradient(to bottom, #000 0%, #000 45%, rgba(0,0,0,0.88) 60%, rgba(0,0,0,0.65) 75%, rgba(0,0,0,0.30) 88%, transparent 100%)",
+          WebkitMask: "linear-gradient(to bottom, #000 0%, #000 45%, rgba(0,0,0,0.88) 60%, rgba(0,0,0,0.65) 75%, rgba(0,0,0,0.30) 88%, transparent 100%)",
         }}
       >
         <LiquidCanvas
           params={{
-            colors: ["#0d1117", "#0b1b2d", "#12385b", "#9ec5e8", "#0d1117"],
-            glowColors: ["#d0e6fa", "#5ba3dc", "#0f2642"],
-            speed: 16,
-            scale: 1.75,
-            distortion: 16,
-            distortBoost: 1.1,
-            swirl: 18,
-            swirlBoost: 0.45,
-            bloomThreshold: 0.65,
+            colors: ["#0d1117", "#0e325c", "#1d6cb5", "#c2e4fc", "#081629"],
+            glowColors: ["#d9f0ff", "#38bdf8", "#12519e"],
+            speed: 24,
+            scale: 1.77,
+            distortion: 18,
+            distortBoost: 2.0,
+            swirl: 20,
+            swirlBoost: 0.8,
+            bloomThreshold: 0.58,
             bloomRange: 0.18,
-            bloomStrength: 0.08,
-            vignette: 0.42,
-            decay: 0.93,
-            mouseRadius: 0.08,
-            mouseStrength: 1.0,
-            mouseSmoothing: 0.12,
-            mouseVelocity: 0.18,
-            glowIntensity: 0.10,
+            bloomStrength: 0.32,
+            vignette: 0.36,
+            decay: 0.925,
+            mouseRadius: 0.09,
+            mouseStrength: 1.7,
+            mouseSmoothing: 0.1,
+            mouseVelocity: 0.2,
+            glowIntensity: 0.24,
           }}
         />
       </div>
@@ -72,20 +72,29 @@ export default function HeroBackground() {
         className="absolute inset-0 z-[1] hidden md:block overflow-hidden"
         style={{
           opacity: 0.85,
-          mask: "linear-gradient(to bottom, #000 0%, #000 42%, rgba(0,0,0,0.85) 58%, rgba(0,0,0,0.58) 72%, rgba(0,0,0,0.28) 86%, rgba(0,0,0,0.06) 96%, transparent 100%)",
-          WebkitMask: "linear-gradient(to bottom, #000 0%, #000 42%, rgba(0,0,0,0.85) 58%, rgba(0,0,0,0.58) 72%, rgba(0,0,0,0.28) 86%, rgba(0,0,0,0.06) 96%, transparent 100%)",
+          mask: "linear-gradient(to bottom, #000 0%, #000 45%, rgba(0,0,0,0.88) 60%, rgba(0,0,0,0.65) 75%, rgba(0,0,0,0.30) 88%, transparent 100%)",
+          WebkitMask: "linear-gradient(to bottom, #000 0%, #000 45%, rgba(0,0,0,0.88) 60%, rgba(0,0,0,0.65) 75%, rgba(0,0,0,0.30) 88%, transparent 100%)",
         }}
       >
         <InteractiveGrid
-          lineColor="rgba(125, 207, 255,"
-          dotColor="rgba(125, 207, 255,"
-          lineOpacity={0.045}
-          dotOpacity={0.11}
-          spacing={92}
-          mouseRadius={110}
-          repelForce={10}
+          lineColor="rgba(135, 212, 255,"
+          dotColor="rgba(200, 238, 255,"
+          lineOpacity={0.085}
+          dotOpacity={0.22}
+          spacing={90}
+          mouseRadius={140}
+          repelForce={30}
         />
       </div>
+
+      {/* 3. Dark contrast overlay to eliminate glare and keep background deep & readable */}
+      <div
+        className="absolute inset-0 z-[2] pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(13, 17, 23, 0.22) 0%, rgba(13, 17, 23, 0.15) 35%, rgba(13, 17, 23, 0.48) 70%, rgba(13, 17, 23, 0.88) 100%), radial-gradient(circle at 50% 35%, transparent 35%, rgba(13, 17, 23, 0.35) 100%)",
+        }}
+      />
     </div>
   );
 }

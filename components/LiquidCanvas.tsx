@@ -26,27 +26,27 @@ export interface LiquidCanvasParams {
 }
 
 const DEFAULT_PARAMS: Required<LiquidCanvasParams> = {
-  // Muted, subtle, deep atmospheric palette
-  colors: ["#0d1117", "#0b1b2d", "#12385b", "#9ec5e8", "#0d1117"],
-  glowColors: ["#d0e6fa", "#5ba3dc", "#0f2642"],
-  speed: 16,
-  scale: 1.75,
-  offsetX: -110,
-  offsetY: -45,
-  distortion: 16,
-  distortBoost: 1.1,
-  swirl: 18,
-  swirlBoost: 0.45,
-  bloomThreshold: 0.65,
+  // Dark atmospheric fluid with soft ice-white highlights and rich depth
+  colors: ["#0d1117", "#0e2a4f", "#185294", "#d4ebfc", "#071322"],
+  glowColors: ["#d9f0ff", "#38bdf8", "#0f3e82"],
+  speed: 24,
+  scale: 1.77,
+  offsetX: -124,
+  offsetY: -48,
+  distortion: 18,
+  distortBoost: 2.0,
+  swirl: 20,
+  swirlBoost: 0.75,
+  bloomThreshold: 0.62,
   bloomRange: 0.18,
-  bloomStrength: 0.08,
-  vignette: 0.42,
-  decay: 0.93,
-  mouseRadius: 0.08,
-  mouseStrength: 1.0,
-  mouseSmoothing: 0.12,
-  mouseVelocity: 0.18,
-  glowIntensity: 0.10,
+  bloomStrength: 0.20,
+  vignette: 0.45,
+  decay: 0.925,
+  mouseRadius: 0.09,
+  mouseStrength: 1.6,
+  mouseSmoothing: 0.1,
+  mouseVelocity: 0.2,
+  glowIntensity: 0.16,
 };
 
 function hexToRgb(hex: string): [number, number, number] {
@@ -196,17 +196,17 @@ void main() {
 
   // Smooth mouse interaction via flowmap
   vec4 flow = texture(u_flowmap, uv);
-  float influence = smoothstep(0.01, 0.9, flow.r);
+  float influence = flow.r;
   vec2 flowDir = (flow.gb - 0.5) * 2.0;
 
-  // Damped mouse distortion
-  suv += flowDir * (influence * u_distortBoost * 0.55);
+  // Mouse distortion to UV
+  suv += flowDir * influence * u_distortBoost * 0.8;
 
-  // Smooth mouse swirl
-  float swirlAngle = influence * u_swirlBoost * 1.8;
+  // Mouse swirl
+  float swirlAngle = influence * u_swirlBoost * 2.5;
   float cs = cos(swirlAngle), sn = sin(swirlAngle);
   vec2 delta = suv - vec2(uv.x * aspect, uv.y) * u_scale;
-  suv += (mat2(cs, sn, -sn, cs) * delta - delta) * (influence * 0.75);
+  suv += (mat2(cs, sn, -sn, cs) * delta - delta) * influence;
 
   // Fluid turbulence
   vec2 curl = fastCurl(suv, t);
@@ -215,24 +215,24 @@ void main() {
   float swirl = snoise(vec3(uvD * 0.75 + f * 1.4, t * 0.035)) * 0.5 + 0.5;
   float n = f * 0.5 + 0.5;
 
-  // Deep atmospheric color mixing (subtle, soft, non-distracting)
-  vec3 col = mix(u_c1, u_c2, smoothstep(0.24, 0.54, n));
-  col = mix(col, u_c3, smoothstep(0.38, 0.68, n + swirl * 0.25) * 0.85);
+  // Vibrant fluid color mixing with rich saturation
+  vec3 col = mix(u_c1, u_c2, smoothstep(0.18, 0.52, n));
+  col = mix(col, u_c3, smoothstep(0.30, 0.66, n + swirl * 0.30));
 
-  // Soft, delicate, non-intrusive white wisps
-  float whiteCrest = pow(smoothstep(0.68, 0.90, swirl), 2.4) * smoothstep(0.32, 0.62, n);
-  col = mix(col, u_c4, whiteCrest * 0.35);
+  // Soft, refined white-tinted fluid crests (gentle, dark atmospheric, non-glaring)
+  float whiteCrest = pow(smoothstep(0.65, 0.90, swirl), 2.0) * smoothstep(0.28, 0.62, n);
+  col = mix(col, u_c4, whiteCrest * 0.45);
 
   // Deep shadow folds
-  col = mix(col, u_c5, smoothstep(0.50, 0.80, n * swirl) * 0.40);
+  col = mix(col, u_c5, smoothstep(0.48, 0.82, n * swirl) * 0.40);
 
-  // Mouse proximity color shift: 3-color glow
-  if (influence > 0.005) {
-    float glow = smoothstep(0.0, 0.75, influence);
-    vec3 glowMix = mix(u_glowColor3, u_glowColor2, influence);
-    glowMix = mix(glowMix, u_glowColor1, influence * 0.85);
-    col = mix(col, glowMix, glow * u_glowIntensity);
-  }
+  // Mouse proximity color shift: 3-color dark-cyan glow blended by distance + noise
+  float glow = smoothstep(0.0, 0.75, influence);
+  float glowNoise = snoise(vec3(uvD * 1.5, t * 0.08)) * 0.5 + 0.5;
+  float glowDist = smoothstep(0.0, 1.0, influence);
+  vec3 glowMix = mix(u_glowColor3, u_glowColor2, glowDist);
+  glowMix = mix(glowMix, u_glowColor1, glowDist * glowNoise);
+  col = mix(col, glowMix, glow * u_glowIntensity);
 
   // Soft self-luminance bloom on fluid highlights only
   float luma = dot(col, vec3(0.299, 0.587, 0.114));
@@ -243,8 +243,8 @@ void main() {
   float vig = 1.0 - smoothstep(0.35, 0.75, length(uv - 0.5));
   col = mix(col * (1.0 - u_vignette), col, vig);
 
-  // Ultra-wide, gradual feathering across the lower half
-  float bottomFade = smoothstep(0.0, 0.58, uv.y);
+  // Gradual feathering across the lower edge
+  float bottomFade = smoothstep(0.0, 0.35, uv.y);
   col = mix(u_c1, col, bottomFade);
 
   fragColor = vec4(col, 1.0);
@@ -267,7 +267,6 @@ export default function LiquidCanvas({ params }: { params?: LiquidCanvasParams }
     width: 1,
     height: 1,
   });
-  const rawMouseRef = useRef<{ clientX: number; clientY: number }>({ clientX: -9999, clientY: -9999 });
   const mouseState = useRef({
     x: 0.5,
     y: 0.5,
@@ -440,22 +439,19 @@ export default function LiquidCanvas({ params }: { params?: LiquidCanvasParams }
     const isTouch = window.matchMedia("(hover: none), (pointer: coarse)").matches;
 
     const onMouseMove = (e: MouseEvent) => {
-      rawMouseRef.current.clientX = e.clientX;
-      rawMouseRef.current.clientY = e.clientY;
+      const r = cachedRectRef.current;
+      mouseState.current.x = (e.clientX - r.left) / r.width;
+      mouseState.current.y = 1.0 - (e.clientY - r.top) / r.height;
     };
 
     window.addEventListener("mousemove", onMouseMove, { passive: true });
     startTimeRef.current = performance.now();
 
-    let lastFrameTime = 0;
-    const minFrameInterval = 1000 / 30;
-
-    const render = (now: number) => {
+    const render = () => {
       rafRef.current = requestAnimationFrame(render);
-      if (!isIntersectingRef.current || now - lastFrameTime < minFrameInterval) {
+      if (!isIntersectingRef.current) {
         return;
       }
-      lastFrameTime = now - ((now - lastFrameTime) % minFrameInterval);
 
       const { rw: curW, rh: curH } = computeRenderSize();
       if (curW !== displayW || curH !== displayH) {
@@ -485,13 +481,6 @@ export default function LiquidCanvas({ params }: { params?: LiquidCanvasParams }
 
       const p = paramsRef.current;
       const m = mouseState.current;
-      const raw = rawMouseRef.current;
-      const rect = cachedRectRef.current;
-
-      if (raw.clientX > -9000) {
-        m.x = (raw.clientX - rect.left) / rect.width;
-        m.y = 1.0 - (raw.clientY - rect.top) / rect.height;
-      }
 
       m.smoothX += (m.x - m.smoothX) * p.mouseSmoothing;
       m.smoothY += (m.y - m.smoothY) * p.mouseSmoothing;

@@ -27,20 +27,14 @@ export default function InteractiveGrid({
   dotColor = "rgba(125, 207, 255,",
   lineOpacity = 0.07,
   dotOpacity = 0.16,
-  spacing = 88,
-  mouseRadius = 120,
-  repelForce = 16,
+  spacing = 90,
+  mouseRadius = 140,
+  repelForce = 30,
   isStatic = false,
 }: InteractiveGridProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rafRef = useRef<number>(0);
-  const rawMouseRef = useRef<{ clientX: number; clientY: number }>({ clientX: -9999, clientY: -9999 });
-  const cachedRectRef = useRef<{ left: number; top: number; width: number; height: number }>({
-    left: 0,
-    top: 0,
-    width: 1,
-    height: 1,
-  });
+  const mousePosRef = useRef<{ x: number; y: number }>({ x: NaN, y: NaN });
   const isIntersectingRef = useRef(true);
 
   useEffect(() => {
@@ -48,20 +42,14 @@ export default function InteractiveGrid({
     if (!canvas) return;
 
     const isTouch = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+    if (isTouch) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Cache bounding rect on scroll/resize (never in mousemove)
+    let rect = canvas.getBoundingClientRect();
     const updateRect = () => {
-      const r = canvas.getBoundingClientRect();
-      cachedRectRef.current = {
-        left: r.left,
-        top: r.top,
-        width: r.width || 1,
-        height: r.height || 1,
-      };
+      if (canvas) rect = canvas.getBoundingClientRect();
     };
-    updateRect();
     window.addEventListener("resize", updateRect, { passive: true });
     window.addEventListener("scroll", updateRect, { passive: true });
 
@@ -113,14 +101,14 @@ export default function InteractiveGrid({
 
     const onMouseMove = (e: MouseEvent) => {
       if (isStatic) return;
-      rawMouseRef.current.clientX = e.clientX;
-      rawMouseRef.current.clientY = e.clientY;
+      mousePosRef.current.x = e.clientX - rect.left;
+      mousePosRef.current.y = e.clientY - rect.top;
       wakeUp();
     };
 
     const onMouseLeave = () => {
-      rawMouseRef.current.clientX = -9999;
-      rawMouseRef.current.clientY = -9999;
+      mousePosRef.current.x = NaN;
+      mousePosRef.current.y = NaN;
       wakeUp();
     };
 
@@ -129,15 +117,13 @@ export default function InteractiveGrid({
       window.addEventListener("mouseleave", onMouseLeave, { passive: true });
     }
 
-    let lastFrameTime = 0;
-    const minFrameInterval = 1000 / 30; // 30 FPS physics update is light and buttery smooth
+    const mouseRadiusSq = mouseRadius * mouseRadius;
 
-    const tick = (now: number) => {
-      if (!isIntersectingRef.current || now - lastFrameTime < minFrameInterval) {
+    const tick = () => {
+      if (!isIntersectingRef.current) {
         rafRef.current = requestAnimationFrame(tick);
         return;
       }
-      lastFrameTime = now - ((now - lastFrameTime) % minFrameInterval);
 
       const curW = canvas.clientWidth;
       const curH = canvas.clientHeight;
@@ -147,47 +133,39 @@ export default function InteractiveGrid({
         canvas.width = Math.round(width * dpr);
         canvas.height = Math.round(height * dpr);
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        updateRect();
         if (resizeTimer) clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(initGrid, 120);
+        resizeTimer = setTimeout(initGrid, 150);
       }
 
       ctx.clearRect(0, 0, width, height);
 
-      const rect = cachedRectRef.current;
-      const raw = rawMouseRef.current;
-      const hasMouse = !isTouch && raw.clientX > -9000;
-      const mx = hasMouse ? raw.clientX - rect.left : NaN;
-      const my = hasMouse ? raw.clientY - rect.top : NaN;
-
+      const mx = mousePosRef.current.x;
+      const my = mousePosRef.current.y;
+      const hasMouse = !isNaN(mx) && !isNaN(my);
       let maxVelocity = 0;
-      const hoveredIndices: { idx: number; proximity: number }[] = [];
 
-      // Fast physics pass
+      // DeepSeek elastic spring physics pass
       for (let i = 0; i < points.length; i++) {
         const pt = points[i];
 
         if (hasMouse) {
           const dx = pt.x - mx;
           const dy = pt.y - my;
-          // Fast bounding box pre-filter before Math.sqrt
           if (Math.abs(dx) < mouseRadius && Math.abs(dy) < mouseRadius) {
             const distSq = dx * dx + dy * dy;
-            const radSq = mouseRadius * mouseRadius;
-            if (distSq < radSq && distSq > 0.01) {
+            if (distSq < mouseRadiusSq && distSq > 0.01) {
               const dist = Math.sqrt(distSq);
               const force = (1.0 - dist / mouseRadius) * repelForce;
-              const nx = dx / dist;
-              const ny = dy / dist;
-              pt.vx += nx * force * 0.08;
-              pt.vy += ny * force * 0.08;
-              hoveredIndices.push({ idx: i, proximity: 1.0 - dist / mouseRadius });
+              pt.vx += (dx / dist) * force * 0.1;
+              pt.vy += (dy / dist) * force * 0.1;
             }
           }
         }
 
-        // Spring restitution
-        pt.vx = (pt.vx + 0.05 * (pt.restX - pt.x)) * 0.85;
-        pt.vy = (pt.vy + 0.05 * (pt.restY - pt.y)) * 0.85;
+        // Spring pull to rest position
+        pt.vx = (pt.vx + 0.06 * (pt.restX - pt.x)) * 0.84;
+        pt.vy = (pt.vy + 0.06 * (pt.restY - pt.y)) * 0.84;
         pt.x += pt.vx;
         pt.y += pt.vy;
 
@@ -197,13 +175,12 @@ export default function InteractiveGrid({
         }
       }
 
-      // Draw all line segments in ONE batched path (silky smooth, anti-aliased)
+      // Single batched draw for all grid line segments
       ctx.strokeStyle = `${lineColor} ${lineOpacity})`;
-      ctx.lineWidth = 0.8;
-      ctx.lineCap = "round";
+      ctx.lineWidth = 0.5;
       ctx.beginPath();
 
-      // Horizontal segments
+      // Horizontal segments with gaps near intersection points
       for (let r = 0; r < rows; r++) {
         const rowOffset = r * cols;
         for (let c = 0; c < cols - 1; c++) {
@@ -211,8 +188,9 @@ export default function InteractiveGrid({
           const p2 = points[rowOffset + c + 1];
           const dx = p2.x - p1.x;
           const dy = p2.y - p1.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 20) continue;
+          const distSq = dx * dx + dy * dy;
+          if (distSq <= 400) continue;
+          const dist = Math.sqrt(distSq);
           const nx = (dx / dist) * 10;
           const ny = (dy / dist) * 10;
           ctx.moveTo(p1.x + nx, p1.y + ny);
@@ -220,15 +198,16 @@ export default function InteractiveGrid({
         }
       }
 
-      // Vertical segments
+      // Vertical segments with gaps near intersection points
       for (let c = 0; c < cols; c++) {
         for (let r = 0; r < rows - 1; r++) {
           const p1 = points[r * cols + c];
           const p2 = points[(r + 1) * cols + c];
           const dx = p2.x - p1.x;
           const dy = p2.y - p1.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 20) continue;
+          const distSq = dx * dx + dy * dy;
+          if (distSq <= 400) continue;
+          const dist = Math.sqrt(distSq);
           const nx = (dx / dist) * 10;
           const ny = (dy / dist) * 10;
           ctx.moveTo(p1.x + nx, p1.y + ny);
@@ -237,31 +216,33 @@ export default function InteractiveGrid({
       }
       ctx.stroke();
 
-      // Draw base dots as smooth anti-aliased circles
+      // Batch 1: Base cyber dots
       ctx.fillStyle = `${dotColor} ${dotOpacity})`;
-      ctx.beginPath();
       for (let i = 0; i < points.length; i++) {
         const pt = points[i];
-        ctx.moveTo(pt.x + 1.5, pt.y);
-        ctx.arc(pt.x, pt.y, 1.5, 0, Math.PI * 2);
+        ctx.fillRect(pt.x - 1.5, pt.y - 1.5, 3, 3);
       }
-      ctx.fill();
 
-      // Draw hovered / expanding dots with smooth circular glow (only ~3-6 points)
-      if (hoveredIndices.length > 0) {
-        for (let k = 0; k < hoveredIndices.length; k++) {
-          const { idx, proximity } = hoveredIndices[k];
-          const pt = points[idx];
-          const radius = 1.5 + 2.4 * proximity;
-          ctx.fillStyle = `${dotColor} ${dotOpacity + 0.45 * proximity})`;
-          ctx.beginPath();
-          ctx.arc(pt.x, pt.y, radius, 0, Math.PI * 2);
-          ctx.fill();
+      // Batch 2: Expanding cyber dots near mouse hover
+      if (hasMouse) {
+        for (let i = 0; i < points.length; i++) {
+          const pt = points[i];
+          const dx = pt.x - mx;
+          const dy = pt.y - my;
+          if (Math.abs(dx) < mouseRadius && Math.abs(dy) < mouseRadius) {
+            const distSq = dx * dx + dy * dy;
+            if (distSq < mouseRadiusSq) {
+              const prox = 1 - Math.sqrt(distSq) / mouseRadius;
+              const halfSize = 1.5 + 2.5 * prox;
+              ctx.fillStyle = `${dotColor} ${Math.min(1.0, dotOpacity + 0.65 * prox)})`;
+              ctx.fillRect(pt.x - halfSize, pt.y - halfSize, halfSize * 2, halfSize * 2);
+            }
+          }
         }
       }
 
-      // Sleep loop if almost completely still and mouse is away
-      if (maxVelocity < 0.01 && !hasMouse) {
+      // Sleep when physics has settled and mouse is away
+      if (maxVelocity < 0.008 && !hasMouse) {
         isSleeping = true;
       } else {
         rafRef.current = requestAnimationFrame(tick);
