@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { FileText, ChevronRight } from "lucide-react";
 import TerminalWindow from "./TerminalWindow";
+import HeroBackground from "./HeroBackground";
 
 const fullCommand = "jeet@portfolio:~$ whoami";
 
@@ -107,25 +108,34 @@ export default function Hero() {
   return (
     <section
       id="hero"
+      className="relative w-full overflow-hidden flex items-center justify-center"
       style={{
         minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        padding: "80px 24px 60px",
-        maxWidth: "1200px",
-        margin: "0 auto",
+        position: "relative",
+        paddingTop: "60px",
       }}
     >
+      <HeroBackground />
       <div
         style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "32px",
           width: "100%",
-          alignItems: "stretch",
+          maxWidth: "1200px",
+          margin: "0 auto",
+          padding: "40px 24px 60px",
+          position: "relative",
+          zIndex: 10,
         }}
-        className="hero-grid"
       >
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "32px",
+            width: "100%",
+            alignItems: "stretch",
+          }}
+          className="hero-grid"
+        >
         {/* Left: Main terminal */}
         <div style={{ display: "flex", flexDirection: "column" }}>
           <TerminalWindow
@@ -350,8 +360,10 @@ export default function Hero() {
               <div
                 key={label}
                 style={{
-                  background: "var(--bg-secondary)",
-                  border: "1px solid var(--border-color)",
+                  background: "rgba(22, 27, 34, 0.72)",
+                  backdropFilter: "blur(16px)",
+                  WebkitBackdropFilter: "blur(16px)",
+                  border: "1px solid rgba(48, 54, 61, 0.65)",
                   borderRadius: "8px",
                   padding: "12px",
                   textAlign: "center",
@@ -367,6 +379,7 @@ export default function Hero() {
             ))}
           </div>
         </div>
+      </div>
       </div>
 
       <style>{`

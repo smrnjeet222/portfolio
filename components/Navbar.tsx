@@ -17,6 +17,28 @@ const navItems = [
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          // Delayed start and extended travel: only begins fading after 200px, gently completing around 460px
+          const startScroll = 200;
+          const endScroll = 460;
+          const raw = Math.min(1, Math.max(0, (window.scrollY - startScroll) / (endScroll - startScroll)));
+          const p = raw * raw * (3 - 2 * raw); // smoothstep curve
+          setScrollProgress(p);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -40,8 +62,18 @@ export default function Navbar() {
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
+  const progress = menuOpen ? 1 : scrollProgress;
+
   return (
-    <nav className="navbar">
+    <nav
+      className="navbar"
+      style={{
+        background: `rgba(13, 17, 23, ${(progress * 0.72).toFixed(3)})`,
+        backdropFilter: progress > 0.02 ? `blur(${(progress * 16).toFixed(1)}px)` : "none",
+        WebkitBackdropFilter: progress > 0.02 ? `blur(${(progress * 16).toFixed(1)}px)` : "none",
+        borderBottom: `1px solid rgba(48, 54, 61, ${(progress * 0.6).toFixed(3)})`,
+      }}
+    >
       <div
         style={{
           maxWidth: "1200px",
@@ -74,7 +106,15 @@ export default function Navbar() {
         {/* Desktop nav */}
         <div
           className="desktop-nav"
-          style={{ display: "flex", gap: "4px", alignItems: "center" }}
+          style={{
+            display: "flex",
+            gap: "4px",
+            alignItems: "center",
+            opacity: progress,
+            pointerEvents: progress > 0.6 ? "auto" : "none",
+            transform: `translateY(${((1 - progress) * -8).toFixed(1)}px)`,
+            transition: "opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+          }}
         >
           {navItems.map((item) => {
             const sectionId = item.href.replace("#", "");
@@ -167,7 +207,10 @@ export default function Navbar() {
       {menuOpen && (
         <div
           style={{
-            borderTop: "1px solid var(--border-color)",
+            background: "rgba(13, 17, 23, 0.85)",
+            backdropFilter: "blur(16px)",
+            WebkitBackdropFilter: "blur(16px)",
+            borderTop: "1px solid rgba(48, 54, 61, 0.6)",
             padding: "16px 24px",
             display: "flex",
             flexDirection: "column",

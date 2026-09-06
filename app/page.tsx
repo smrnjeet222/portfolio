@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main style={{ paddingTop: "60px", paddingBottom: "100px" }}>
+      <main style={{ paddingBottom: "100px" }}>
         <Hero />
         <About />
         <Experiences />

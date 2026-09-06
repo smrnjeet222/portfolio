@@ -16,8 +16,25 @@ export default function TerminalWindow({
   contentStyle,
 }: TerminalWindowProps) {
   return (
-    <div className={`terminal-window ${className}`} style={style}>
-      <div className="terminal-titlebar">
+    <div
+      className={`terminal-window ${className}`}
+      style={{
+        background: "rgba(22, 27, 34, 0.70)",
+        backdropFilter: "blur(16px)",
+        WebkitBackdropFilter: "blur(16px)",
+        border: "1px solid rgba(48, 54, 61, 0.65)",
+        ...style,
+      }}
+    >
+      <div
+        className="terminal-titlebar"
+        style={{
+          background: "rgba(33, 38, 45, 0.75)",
+          backdropFilter: "blur(16px)",
+          WebkitBackdropFilter: "blur(16px)",
+          borderBottom: "1px solid rgba(48, 54, 61, 0.65)",
+        }}
+      >
         <span className="terminal-dot dot-red" />
         <span className="terminal-dot dot-yellow" />
         <span className="terminal-dot dot-green" />
